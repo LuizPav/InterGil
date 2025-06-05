@@ -1,5 +1,7 @@
 // babel.config.js
 module.exports = {
-  presets: ["babel-preset-expo"],
-  plugins: ["nativewind/babel"], // Adicione esta linha
+  presets: [
+    ["babel-preset-expo", { jsxImportSource: "nativewind" }],
+    "nativewind/babel",
+  ],
 };

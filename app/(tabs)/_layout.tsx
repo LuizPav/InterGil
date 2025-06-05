@@ -4,7 +4,7 @@ import { View, StyleSheet } from "react-native";
 
 export default function Layout() {
   return (
-    <Tabs>
+    <Tabs screenOptions={{headerShown: false}}>
       <Tabs.Screen name="index" />
       <Tabs.Screen name="trophy" />
       <Tabs.Screen name="notes" />
