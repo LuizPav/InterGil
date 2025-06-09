@@ -1,12 +1,12 @@
 import CampoDesafio from '@/components/CampoDesafio';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function index() {
 
  return (
    <SafeAreaView className='flex-1 bg-[#072042] justify-center items-center'>
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false} className='flex-1 w-full h-full'>
       <View className='mb-4'>
         <Text className='color-white ml-4 text-xl'>
           Edital
@@ -14,16 +14,8 @@ export default function index() {
         <CampoDesafio edital={true} />
       </View>
 
-      <View className='flex-1'>
+      <View className='flex-1 w-full'>
         <CampoDesafio edital={false} />
-        <CampoDesafio edital={false} />
-        <CampoDesafio edital={false} />
-        <CampoDesafio edital={false} />
-        <CampoDesafio edital={false} />
-      </View>
-
-      <View style={{ backgroundColor: '#fff', width: 32, height: 32}} className='w-32 h-32 bg-white'>
-
       </View>
     </ScrollView>
    </SafeAreaView>
