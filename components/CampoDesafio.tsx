@@ -6,8 +6,8 @@ type CampoDesafioProps={
 
 export default function CampoDesafio({edital}: CampoDesafioProps) {
  return (
-        <View style={styles.container}>
-            <View style={styles.campo}>
+        <View className='flex-1 justify-center items-center'>
+            <View className='w-[92%] h-[200px] bg-white rounded-lg mb-8 flex justify-center items-center'>
 
                 {edital &&
                     <View style={{flexDirection: 'row'}}>
@@ -38,20 +38,6 @@ export default function CampoDesafio({edital}: CampoDesafioProps) {
 }
 
 const styles = StyleSheet.create({  
-    container:{
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    campo:{
-        backgroundColor: '#FFF',
-        width: '92%',
-        height: 200,
-        borderRadius: 15,
-        marginBottom: 30,
-
-    },
     logo:{
         maxHeight: 150,
         maxWidth: 150,

@@ -21,6 +21,10 @@ export default function index() {
         <CampoDesafio edital={false} />
         <CampoDesafio edital={false} />
       </View>
+
+      <View style={{ backgroundColor: '#fff', width: 32, height: 32}} className='w-32 h-32 bg-white'>
+
+      </View>
     </ScrollView>
    </SafeAreaView>
   );
