@@ -4,7 +4,7 @@
     "slug": "interGil",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/intergilLogo.png",
+    "icon": "./assets/images/Logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/intergilLogo.png",
+        "foregroundImage": "./assets/images/Logo.png",
         "backgroundColor": "#ffffff",
         "package": "com.anonymous.interGil"
       },
@@ -22,14 +22,14 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/intergilLogo.png"
+      "favicon": "./assets/images/Logo.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/intergilLogo.png",
+          "image": "./assets/images/Logo.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"

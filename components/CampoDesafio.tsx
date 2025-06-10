@@ -15,7 +15,7 @@ const [modalVisible, setModalVisible] = useState(false);
             <View className='w-[92%] h-[200px] bg-white rounded-[15px] mb-8 flex flex-col'>
 
                 {edital &&
-                    <View className='flex-row items-center'>
+                    <View className='flex-row'>
                         <View className='h-[200px] w-[150px] z-10 mr-6'>
                             <Image
                                 source={require('@/assets/images/intergilLogo.png')}
@@ -31,13 +31,14 @@ const [modalVisible, setModalVisible] = useState(false);
                 }
 
                 <View className='flex-1 justify-end items-end mt-[-78px]'>
-                    <TouchableOpacity className='bg-[#092a56] rounded-xl p-3 mr-10 mb-8 items-center'
+                    <TouchableOpacity className='bg-[#092a56] rounded-3xl p-3 mr-10 mb-8 items-center'
                         onPress={() => setModalVisible(true)}
                     >
-                        <Text className='text-[22px] text-white'>
+                        <Text className='text-[22px] text-white font-hanken-medium'>
                             Entrar
                         </Text>
                     </TouchableOpacity>
+
                     <Modal visible={modalVisible} animationType='slide'>
                         <EditalExpanded closeModal={() => setModalVisible(false)}/>
                     </Modal>
