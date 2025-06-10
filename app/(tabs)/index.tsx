@@ -9,14 +9,21 @@ export default function index() {
     <ScrollView className='flex-1 w-full h-full'
       showsVerticalScrollIndicator={false}
     >
-      <View className='mb-4'>
-        <Text className='color-white ml-4 text-xl'>
+      <Text className='text-3xl text-white ml-6 mt-4 mb-2 font-horizon'>
+        Home
+      </Text>
+
+      <View className='w-[92%] m-auto'>
+        <Text className='color-white ml-4 mt-4 mb-4 text-2xl font-horizon'>
           Edital
         </Text>
         <CampoDesafio edital={true} />
       </View>
 
-      <View className='flex-1 w-full'>
+      <View className='flex-1 w-[92%] m-auto'>
+        <Text className='color-white ml-4 text-2xl font-horizon mb-4'>
+          Desafio
+        </Text>
         <CampoDesafio edital={false} />
         <CampoDesafio edital={false} />
         <CampoDesafio edital={false} />

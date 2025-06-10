@@ -17,6 +17,8 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    'Horizon-regular': require('@/assets/fonts/horizon.otf'),
+    'HankenGrotesck-Medium': require('@/assets/fonts/HankenGrotesk-Medium.ttf'),
   });
 
   useEffect(() => {

@@ -15,7 +15,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/intergilLogo.png",
         "backgroundColor": "#ffffff",
-        "package":"com.anonymous.interGil"
+        "package": "com.anonymous.interGil"
       },
       "package": "com.anonymous.interGil"
     },
@@ -34,7 +34,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
