@@ -6,7 +6,7 @@ type CampoDesafioProps={
     edital: boolean
 }
 
-export default function CampoDesafio({edital}: CampoDesafioProps) {
+export default function ChallengeField({edital}: CampoDesafioProps) {
 
 const [modalVisible, setModalVisible] = useState(false);
 

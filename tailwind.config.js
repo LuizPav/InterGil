@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        default: ["HankenGrotesck-Medium", "sans-serif"],
         horizon: ["Horizon-regular", "sans-serif"],
-        "hanken-medium": ["HankenGrotesck-Medium", "sans-serif"],
       },
     },
   },
