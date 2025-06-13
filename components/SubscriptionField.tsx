@@ -28,16 +28,6 @@ export default function SubscriptionField({label, type, value, onChangeText}: su
     return FCPF;
   }
 
-  const whatFormat = (text: string) => {
-    if (text.includes('Telefone')) {
-      return formatTel;
-    } else if (text.includes('CPF')) {
-      return formatCPF;
-    } else {
-      return text;
-    }
-  }
-
   const maxLengthValidator = (text: string) => {
     if (text.includes('CPF')) {
       return setMaxLength(14);
