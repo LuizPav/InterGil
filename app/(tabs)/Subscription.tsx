@@ -1,9 +1,31 @@
-import { Picker } from '@react-native-picker/picker';
-import { Text, View, ImageBackground, Image } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { Text, View, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import SubscriptionField from '@/components/SubscriptionField';
+import SubscriptionPicker from '@/components/SubscriptionPicker';
+import { useState } from 'react';
+
 export default function Tela3() {
+
+  const [studentName, setStudentName] = useState('');
+  const [studentNumber, setStudentNumber] = useState('');
+  const [modalidade, setModalidade] = useState('');
+  const [sala, setSala] = useState('');
+  const [parentName, setParentName] = useState('');
+  const [parentNumber, setParentNumber] = useState('');
+  const [CPF, setCPF] = useState('');
+
+  const clearFields = () => {
+    setStudentName('');
+    setStudentNumber('');
+    setModalidade('');
+    setSala('');
+    setParentName('');
+    setParentNumber('');
+    setCPF('CPF');
+    console.log('Fields cleared');
+  };
+
  return (
     <SafeAreaView className='flex-1'>
       <ImageBackground
@@ -20,28 +42,42 @@ export default function Tela3() {
           </Text>
         </View>
 
-        <View className='bg-white h-[800px] w-[90%] rounded-lg mx-auto'>
-          <TextInput 
-            placeholder='Nome completo'
-            placeholderTextColor={'#000'}
-            className='w-[90%] mx-auto p-4 mb-8 h-[30px] border-b-2 border-[#004aad]'
-          />
-
-          <TextInput 
-          placeholder='Telefone(Aluno)'
-          keyboardType='numeric'
-          placeholderTextColor={'#000'}
-          className='w-[90%] mx-auto p-4 h-[30px] border-b-2 border-[#004aad]'
-          />
+        <View className='bg-white h-[750px] w-[90%] rounded-lg mx-auto'>
+          <View className='flex-1 items-center'> 
+            <SubscriptionField label="Nome Completo" value={studentName} 
+              onChangeText={setStudentName} 
+            />
+            <SubscriptionField label="Telefone (Aluno)" value={studentNumber} 
+              onChangeText={setStudentNumber} type='phone-pad'
+            />
+  
+            <SubscriptionPicker label="Modalidades" selectedValue={modalidade} 
+              onValueChange={setModalidade}
+            />
+            <SubscriptionPicker label="Sala" selectedValue={sala} 
+              onValueChange={setSala}
+            />
+  
+            <SubscriptionField label="Nome Completo (Responsável)" value={parentName} 
+              onChangeText={setParentName} 
+            />
+            <SubscriptionField label="Telefone (Responsável)" value={parentNumber} 
+              onChangeText={setParentNumber} type='phone-pad'
+            />
+            <SubscriptionField label="CPF" value={CPF} 
+              onChangeText={setCPF} type='numeric'
+            />
+  
+            <TouchableOpacity 
+              className='bg-[#072042] rounded-full w-[120px] h-[50px] absolute bottom-24 right-8 justify-center items-center'
+              onPress={() => clearFields()}
+            >
+              <Text className='text-white font-bold text-lg'>
+                Enviar
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-
-
-        <Picker
-          className='bg-[#072042] w-[90%] rounded-lg mx-auto font-bold text-white text-2xl'
-          placeholder='Modalidades'
-        >
-          <Picker.Item label="Modalidade 1" value="modalidade1" />
-        </Picker>
 
       </ImageBackground>
     </SafeAreaView>
