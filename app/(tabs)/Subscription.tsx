@@ -1,9 +1,9 @@
-import { Text, View, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { Text, View, ImageBackground, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import SubscriptionForm from '@/components/SubscriptionForm';
 
-export default function Tela3() {
+export default function Subscription() {
 
  return (
     <SafeAreaView className='flex-1'>

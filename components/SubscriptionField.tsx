@@ -9,8 +9,12 @@ type subscriptionFieldProps = {
 };
 
 export default function SubscriptionField({label, type, value, onChangeText}: subscriptionFieldProps) {
- 
+  
   const [maxLength, setMaxLength] = useState(0);
+  
+  useEffect(() => {
+    maxLengthValidator(label);
+  }, [label]);
 
   const formatTel = (Tel: string) => {
     let FTEL = Tel.replace(/\D/g, '');
@@ -38,10 +42,6 @@ export default function SubscriptionField({label, type, value, onChangeText}: su
     }
   }
 
-  useEffect(() => {
-    maxLengthValidator(label);
-  }, [label]);
-
   const handleOnChangeText = (text: string) => {
     
       let formattedText = text;
@@ -53,7 +53,6 @@ export default function SubscriptionField({label, type, value, onChangeText}: su
 
     onChangeText(formattedText);
   }
-
 
   return (
    <TextInput 
