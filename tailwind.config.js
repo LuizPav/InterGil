@@ -6,6 +6,7 @@ module.exports = {
       fontFamily: {
         default: ["HankenGrotesck-Medium", "sans-serif"],
         horizon: ["Horizon-regular", "sans-serif"],
+        clearSans: ["clear-sans", "sans-serif"],
       },
     },
   },

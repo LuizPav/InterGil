@@ -2,12 +2,20 @@ import { ImageBackground, Text, View, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useRouter } from 'expo-router';
 
 
 import ProfileField from '@/components/ProfileField';
 import ModalidadesField from '@/components/ModalidadesField';
 
 export default function Profile() {
+
+  const router = useRouter();
+
+  const handleLogout = () => {
+    router.replace('/Login');
+  }
+
  return (
    <SafeAreaView className='flex-1'>
     <ImageBackground 
@@ -30,7 +38,7 @@ export default function Profile() {
       <ModalidadesField />
       
       <View className='flex-column items-center justify-center my-8'>
-        <TouchableOpacity className='items-start justify-start'>
+        <TouchableOpacity className='items-start justify-start' onPress={handleLogout}>
           <MaterialIcons name='logout' color={'white'} size={25} className='pb-4'/>
         </TouchableOpacity>
         <View className='mx-auto w-[90%] bg-[#9299ce] h-[2px]' />

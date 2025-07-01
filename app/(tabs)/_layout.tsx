@@ -5,7 +5,7 @@ export default function Layout() {
   return (
     <Tabs screenOptions={{headerShown: false, tabBarShowLabel: false}}>
 
-      <Tabs.Screen name="index" options={{
+      <Tabs.Screen name="Home" options={{
         tabBarIcon: ({ color, size }) => {
           return <FontAwesome5 name="home" size={size} color={color} />;
         }
