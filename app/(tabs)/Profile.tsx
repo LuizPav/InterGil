@@ -3,12 +3,45 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useRouter } from 'expo-router';
-
+import { useState, useEffect } from 'react';
+import { db } from '@/src/firebaseConnection';
+import { doc, getDoc } from 'firebase/firestore';
 
 import ProfileField from '@/components/ProfileField';
 import ModalidadesField from '@/components/ModalidadesField';
 
+type UserData = {
+  name: string;
+  matricula: string;
+  password: string;
+  admin: boolean;
+  house: string;
+}
+
 export default function Profile() {
+
+  const [userData, setUserData] = useState<Partial<UserData>>({});
+
+  useEffect(() => {
+    async function fetchUserData() {
+      const docref = doc(db, 'Users', '696969');
+      getDoc(docref)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.data() as UserData;
+          setUserData(data);
+          console.log('informações do usuário: ', snapshot.data());
+        } else {
+          console.log('Não há dados para este usuário.');
+        }
+      })
+      .catch((err) => {
+        console.error('Erro ao buscar dados do usuário: ', err);
+      })
+    }  
+    fetchUserData();
+  }, []);
+
 
   const router = useRouter();
 
@@ -33,7 +66,7 @@ export default function Profile() {
         </Text>
       </View>
 
-      <ProfileField />
+      <ProfileField name={userData.name || "..."} matricula={userData.matricula} house={userData.house}/>
 
       <ModalidadesField />
       
