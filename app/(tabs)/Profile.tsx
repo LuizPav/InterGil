@@ -1,11 +1,12 @@
-import { ImageBackground, Text, View, Image } from 'react-native';
+import { ImageBackground, Text, View, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useRouter } from 'expo-router';
 import { useState, useEffect } from 'react';
-import { db } from '@/src/firebaseConnection';
+import { auth, db } from '@/src/firebaseConnection';
 import { doc, getDoc } from 'firebase/firestore';
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 
 import ProfileField from '@/components/ProfileField';
 import ModalidadesField from '@/components/ModalidadesField';
@@ -21,10 +22,29 @@ type UserData = {
 export default function Profile() {
 
   const [userData, setUserData] = useState<Partial<UserData>>({});
+  const [userId, setUserId] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if(user) {
+          setUserId(user.uid);
+        } else {
+          router.replace('/Login');
+        }
+      });
+      setIsLoading(false);
+      return () => unsubscribe();
+  }, [])
 
   useEffect(() => {
     async function fetchUserData() {
-      const docref = doc(db, 'Users', '696969');
+
+      if(!userId) {
+        return;
+      }
+
+      const docref = doc(db, 'Users', userId);
       getDoc(docref)
       .then((snapshot) => {
         if (snapshot.exists()) {
@@ -39,14 +59,27 @@ export default function Profile() {
         console.error('Erro ao buscar dados do usuário: ', err);
       })
     }  
-    fetchUserData();
-  }, []);
+    if(userId){
+      fetchUserData();
+    }
+  }, [userId]);
 
 
   const router = useRouter();
 
-  const handleLogout = () => {
+  async function handleLogout() {
+    await signOut(auth)
     router.replace('/Login');
+    console.log('Usuário deslogado com sucesso!');
+  }
+
+  if(isLoading) {
+    return (
+      <SafeAreaView className='flex-1 items-center justify-center bg-[#081736]'>
+        <ActivityIndicator size='large' color='#fff' />
+        <Text className='text-white'>Carregando...</Text>
+      </SafeAreaView>
+    );
   }
 
  return (

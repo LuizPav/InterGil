@@ -9,24 +9,21 @@ type LoginFieldProps = {
   onTextChange?: (value: string) => void;
   value: string;
   secureTextEntry?: boolean;
-  minLength?: number; // Adiciona a prop minLength opcional
+  minLength?: number; 
 };
 
 export default function LoginField({ placeholder, type, icon, value, onTextChange, secureTextEntry, minLength = 1 }: LoginFieldProps) {
 
 const [inputError, setInputError] = useState<string | null>(null);
 
-  // Função para lidar com a mudança de texto e a validação
   const handleInputChange = (text: string) => {
-    // 1. Chame a função onTextChange do componente pai
     onTextChange?.(text);
 
-    // 2. Realize a validação de minLength se a prop for fornecida
     if (minLength !== undefined) {
       if (text.length > 0 && text.length < minLength) {
         setInputError(`${placeholder} deve ter no mínimo ${minLength} caracteres.`);
       } else {
-        setInputError(null); // Limpa o erro se o texto atender ou estiver vazio
+        setInputError(null); 
       }
     }
   };
@@ -58,7 +55,7 @@ const [inputError, setInputError] = useState<string | null>(null);
         />
       }
          {inputError && (
-        <Text className='text-red-500 text-sm mt-1 self-start font-clearSans'>
+        <Text className='text-red-500 text-2xl font-bold mt-1 self-start font-clearSans'>
           {inputError}
         </Text>
       )}

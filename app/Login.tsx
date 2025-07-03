@@ -3,8 +3,8 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 
 import LoginField from '@/components/LoginField';
 import { auth } from '@/src/firebaseConnection';
@@ -18,17 +18,32 @@ export default function Index() {
 
   async function handleLogin(){
 
+    if(!email || !password) {
+      alert('Preencha todos os campos!');
+      return;
+    }
+
     const user = await signInWithEmailAndPassword(auth, email, password)
     .then((user) => {
       router.replace('/Home')
-      console.log(user);
+      // console.log(user);
     })
     .catch((err) => {
-      alert(err.code);
+      console.log(err.code);
+      if(err.code == 'auth/invalid-email') {
+        alert('Email inválido!');
+      } else if(err.code == 'auth/user-not-found') {
+        alert('Usuário não encontrado!');
+      } else if(err.code == 'auth/invalid-credential') {
+        alert('Email ou Senha incorreto(s)!');
+      } else {
+        alert('Erro ao fazer login. Tente novamente mais tarde.');
+      }
       return;
     })
       
   }
+
 
  return (
    <SafeAreaView className='flex-1 bg-[#081736]'>

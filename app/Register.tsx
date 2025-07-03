@@ -32,18 +32,27 @@ export default function Register() {
   const router = useRouter();
 
   async function handleRegister() {
-
-    async function createUser() {
       try {
         const user = await createUserWithEmailAndPassword(auth, email, password);
+        const uid = user.user.uid;
         console.log(user)
+
+        await setDoc(doc(db, 'Users', uid), {
+        name: name,
+        email: email,
+        matricula: matricula,
+        house: house,
+        password: password,
+        admin: false,
+        })
+
+        alert('Cadastro realizado com sucesso!');
+        router.replace('/Login');
+
       } catch (error) {
         console.error('Erro ao criar usuário:', error);
         alert('Erro ao criar usuário. Tente novamente mais tarde.');
       }
-    }
-    createUser();
-
     
     if(!name || !matricula || !house || !password || !confirmPassword) {
       alert('Preencha todos os campos!');
@@ -59,25 +68,6 @@ export default function Register() {
       alert('Insira um email válido!');
       return;
     }
-
-    try{ 
-      await setDoc(doc(db, 'Users', matricula), {
-      name: name,
-      email: email,
-      matricula: matricula,
-      house: house,
-      password: password,
-      admin: false,
-      })
-
-      alert('Cadastro realizado com sucesso!');
-      router.replace('/Login');
-      
-    } catch (err) {
-      console.error('Erro ao cadastrar usuário:', err);
-      alert('Erro ao cadastrar usuário. Tente novamente mais tarde.');
-    }
-
   }
 
   const seriesOptions: PickerItem[] = [
@@ -99,9 +89,14 @@ export default function Register() {
  return (
    <SafeAreaView className='flex-1 bg-[#081736]'>
     <ScrollView>
+      <View className='flex flex-row justify-start ml-8 mt-10'>
+        <TouchableOpacity onPress={() => router.back()}>
+          <FontAwesome5 name="arrow-alt-circle-left" size={50} color="white" />
+        </TouchableOpacity>
+      </View>
       <Image
         source={require('@/assets/images/LoginLogo.png')}
-        className='w-[70%] h-[150px] mx-auto my-32'
+        className='w-[70%] h-[150px] mx-auto mt-16 mb-32'
       />
       <View className='flex-1'>
         <Text className='font-horizon text-4xl text-white ml-8 mb-24'>
@@ -146,11 +141,22 @@ export default function Register() {
                       secureTextEntry={true}
           />
         </View>
-        <View className='flex flex-row justify-start ml-8 mt-10'>
-          <TouchableOpacity onPress={handleRegister}>
-            <FontAwesome5 name="arrow-alt-circle-left" size={60} color="white" />
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={handleRegister}
+        style={{
+          backgroundColor: '#5271FF',
+          width: '40%',
+          height: 50,
+          borderRadius: 10,
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: 20,
+          alignSelf: 'center'
+        }}
+        className='flex-1 bg-[#5271FF] w-[40%] h-[50px] rounded-lg items-center justify-center mx-auto'>
+          <Text className='text-white font-bold text-lg font-clearSans'>
+            Criar conta
+          </Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
    </SafeAreaView>

@@ -1,4 +1,7 @@
-import { Image, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/src/firebaseConnection';
+import { ActivityIndicator, Image, View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
