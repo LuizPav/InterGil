@@ -49,8 +49,8 @@ export default function Index() {
    <SafeAreaView className='flex-1 bg-[#081736]'>
     <ScrollView>
       <Image
-        source={require('@/assets/images/LoginLogo.png')}
-        className='w-[70%] h-[150px] mx-auto my-32'
+        source={require('@/assets/images/intergilAppLogo.png')}
+        className='w-[70%] h-[250px] mx-auto my-32'
       />
       <View className='flex-1'>
         <Text className='font-horizon text-4xl text-white ml-8 mb-24'>

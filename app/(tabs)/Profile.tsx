@@ -22,7 +22,7 @@ type UserData = {
 export default function Profile() {
 
   const [userData, setUserData] = useState<Partial<UserData>>({});
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

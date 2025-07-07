@@ -32,12 +32,14 @@ export default function Register() {
   const router = useRouter();
 
   async function handleRegister() {
-      try {
-        const user = await createUserWithEmailAndPassword(auth, email, password);
-        const uid = user.user.uid;
-        console.log(user)
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = user.user.uid;
+      console.log(user)
 
-        await setDoc(doc(db, 'Users', uid), {
+      const userDocRef = doc(db, 'Users', uid);
+
+        await setDoc(userDocRef, {
         name: name,
         email: email,
         matricula: matricula,
@@ -45,6 +47,7 @@ export default function Register() {
         password: password,
         admin: false,
         })
+
 
         alert('Cadastro realizado com sucesso!');
         router.replace('/Login');
@@ -72,18 +75,18 @@ export default function Register() {
 
   const seriesOptions: PickerItem[] = [
     { label: 'Série', value: '', enabled: false },
-    { label: '1ADS', value: '1ADS'},
-    { label: '1BDS', value: '1BDS'},
-    { label: '1AADM', value: '1AADM'},
-    { label: '1BADM', value: '1BADM'},
-    { label: '2ADS', value: '2ADS'},
-    { label: '2BDS', value: '2BDS'},
-    { label: '2AADM', value: '2AADM'},
-    { label: '2BADM', value: '2BADM'},
-    { label: '3ADS', value: '3ADS'},
-    { label: '3BDS', value: '3BDS'},
-    { label: '3AADM', value: '3AADM'},
-    { label: '3BADM', value: '3BADM'},
+    { label: '1 ADS', value: '1 ADS'},
+    { label: '1 BDS', value: '1 BDS'},
+    { label: '1 AADM', value: '1 AADM'},
+    { label: '1 BADM', value: '1 BADM'},
+    { label: '2 ADS', value: '2 ADS'},
+    { label: '2 BDS', value: '2 BDS'},
+    { label: '2 AADM', value: '2 AADM'},
+    { label: '2 BADM', value: '2 BADM'},
+    { label: '3 ADS', value: '3 ADS'},
+    { label: '3 BDS', value: '3 BDS'},
+    { label: '3 AADM', value: '3 AADM'},
+    { label: '3 BADM', value: '3 BADM'},
   ] 
 
  return (
@@ -95,8 +98,8 @@ export default function Register() {
         </TouchableOpacity>
       </View>
       <Image
-        source={require('@/assets/images/LoginLogo.png')}
-        className='w-[70%] h-[150px] mx-auto mt-16 mb-32'
+        source={require('@/assets/images/intergilAppLogo.png')}
+        className='w-[70%] h-[250px] mx-auto mb-16'
       />
       <View className='flex-1'>
         <Text className='font-horizon text-4xl text-white ml-8 mb-24'>
