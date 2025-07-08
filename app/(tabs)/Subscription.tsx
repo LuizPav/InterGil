@@ -29,7 +29,7 @@ export default function Subscription() {
     setSala('');
     setParentName('');
     setParentNumber('');
-    setCPF('CPF');
+    setCPF('');
     console.log('Fields cleared');
   };
 
@@ -61,7 +61,8 @@ export default function Subscription() {
     setIsSubmitting(true);
 
     try {
-      const docRef = doc(db, 'Users', userId, 'Modalidades', modalidade)
+      const docRef = doc(db, 'Users', userId, 'ModalidadesInscritas', modalidade)
+      const listDocRef = doc(db, 'Modalidades', modalidade)
 
       setDoc(docRef, {
         studentName: studentName,
@@ -73,6 +74,15 @@ export default function Subscription() {
         CPF: CPF,
         timeStamp: new Date()
       })  
+
+      setDoc(listDocRef, {
+        studentName: studentName,
+        sala: sala,
+        studentNumber: studentNumber,
+        parentName: parentName,
+        parentNumber: parentNumber
+      })
+
   } catch(err) {
     console.error('Erro ao salvar inscrição:', err);
     alert('Erro ao salvar inscrição. Tente novamente mais tarde.');

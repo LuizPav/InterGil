@@ -64,21 +64,22 @@ export default function SubscriptionForm({
               className='bg-[#a2a2a2] rounded-full w-[120px] h-[50px] absolute bottom-24 right-8 justify-center items-center'
               onPress={onSubmit}
               disabled={isSubmitting}
-            >
-              <Text className='text-white font-bold text-lg'>
-                Enviando...
-              </Text>
-            </TouchableOpacity>
-            :
-            <TouchableOpacity 
-              className='bg-[#072042] rounded-full w-[120px] h-[50px] absolute bottom-24 right-8 justify-center items-center'
-              onPress={onSubmit}
-              disabled={isSubmitting}
-            >
-              <Text className='text-white font-bold text-lg'>
-                Enviar
-              </Text>
-            </TouchableOpacity>
-}   </View>
+              >
+                <Text className='text-white font-bold text-lg'>
+                  Enviando...
+                </Text>
+              </TouchableOpacity>
+              :
+              <TouchableOpacity 
+                className='bg-[#072042] rounded-full w-[120px] h-[50px] absolute bottom-24 right-8 justify-center items-center'
+                onPress={onSubmit}
+                disabled={isSubmitting}
+              >
+                <Text className='text-white font-bold text-lg'>
+                  Enviar
+                </Text>
+              </TouchableOpacity>
+            }   
+    </View>
   );
 }
