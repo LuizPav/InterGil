@@ -1,17 +1,16 @@
 import { Text, View, ImageBackground, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState } from 'react';
 
 import { doc, setDoc } from 'firebase/firestore';
-import { onAuthStateChanged } from 'firebase/auth';
+import { db } from '@/src/firebaseConnection';
 
 import SubscriptionForm from '@/components/SubscriptionForm';
-import { auth, db } from '@/src/firebaseConnection';
-import { useEffect, useState } from 'react';
+import { useAuthUser } from '@/hooks/useAuthUser'
 
 export default function Subscription() {
 
-  const [userId, setUserId] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { user, isLoading } = useAuthUser();
 
   const [studentName, setStudentName] = useState('');
   const [studentNumber, setStudentNumber] = useState('');
@@ -33,20 +32,20 @@ export default function Subscription() {
     console.log('Fields cleared');
   };
 
-  useEffect(() => {
-    const userid = onAuthStateChanged(auth, (user) => {
-      user ? 
-      setUserId(user.uid)
-      :
-      setUserId(null);
-    });
-    setIsLoading(false);
-    return () => userid();
-  }, []);
+  // useEffect(() => {
+  //   const userid = onAuthStateChanged(auth, (user) => {
+  //     user ? 
+  //     setUserId(user.uid)
+  //     :
+  //     setUserId(null);
+  //   });
+  //   setIsLoading(false);
+  //   return () => userid();
+  // }, []);
 
   async function handleSubscription() {
 
-    if(!userId) {
+    if(!user) {
       alert('Usuário não autenticado. Por favor, faça login.');
       return;
     }
@@ -61,8 +60,8 @@ export default function Subscription() {
     setIsSubmitting(true);
 
     try {
-      const docRef = doc(db, 'Users', userId, 'ModalidadesInscritas', modalidade)
-      const listDocRef = doc(db, 'Modalidades', modalidade)
+      const docRef = doc(db, 'Users', user.uid, 'ModalidadesInscritas', modalidade)
+      const listDocRef = doc(db, 'Modalidades', modalidade, 'inscritos', studentName)
 
       setDoc(docRef, {
         studentName: studentName,
@@ -76,6 +75,7 @@ export default function Subscription() {
       })  
 
       setDoc(listDocRef, {
+        user: user.uid,
         studentName: studentName,
         sala: sala,
         studentNumber: studentNumber,

@@ -41,14 +41,12 @@ export default function SubscriptionForm({
             <SubscriptionField label="Telefone (Aluno)" value={studentNumber} 
               onChangeText={setStudentNumber} type='phone-pad'
             />
-  
             <SubscriptionPicker label="Modalidades" selectedValue={modalidade} 
               onValueChange={setModalidade}
             />
             <SubscriptionPicker label="Sala" selectedValue={sala} 
               onValueChange={setSala}
             />
-  
             <SubscriptionField label="Nome Completo (Responsável)" value={parentName} 
               onChangeText={setParentName} 
             />

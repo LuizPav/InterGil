@@ -1,15 +1,17 @@
+import { useState, useEffect } from 'react';
 import { ImageBackground, Text, View, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useRouter } from 'expo-router';
-import { useState, useEffect } from 'react';
+
 import { auth, db } from '@/src/firebaseConnection';
 import { doc, getDoc } from 'firebase/firestore';
-import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { signOut } from 'firebase/auth'
 
 import ProfileField from '@/components/ProfileField';
 import ModalidadesField from '@/components/ModalidadesField';
+import { useAuthUser } from '@/hooks/useAuthUser';
 
 type UserData = {
   name: string;
@@ -21,30 +23,18 @@ type UserData = {
 
 export default function Profile() {
 
-  const [userData, setUserData] = useState<Partial<UserData>>({});
-  const [userId, setUserId] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+const [userData, setUserData] = useState<Partial<UserData>>({});
 
-  useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if(user) {
-          setUserId(user.uid);
-        } else {
-          router.replace('/Login');
-        }
-      });
-      setIsLoading(false);
-      return () => unsubscribe();
-  }, [])
+ const { user, isLoading } = useAuthUser();
 
   useEffect(() => {
     async function fetchUserData() {
 
-      if(!userId) {
+      if(!user) {
         return;
       }
 
-      const docref = doc(db, 'Users', userId);
+      const docref = doc(db, 'Users', user.uid);
       getDoc(docref)
       .then((snapshot) => {
         if (snapshot.exists()) {
@@ -59,10 +49,10 @@ export default function Profile() {
         console.error('Erro ao buscar dados do usuário: ', err);
       })
     }  
-    if(userId){
+    if(user){
       fetchUserData();
     }
-  }, [userId]);
+  }, [user?.uid]);
 
 
   const router = useRouter();
@@ -101,7 +91,7 @@ export default function Profile() {
 
       <ProfileField name={userData.name || "..."} matricula={userData.matricula} house={userData.house}/>
 
-      <ModalidadesField />
+      <ModalidadesField/>
       
       <View className='flex-column items-center justify-center my-8'>
         <TouchableOpacity className='items-start justify-start' onPress={handleLogout}>
