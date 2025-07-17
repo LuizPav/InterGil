@@ -39,8 +39,8 @@ export default function ModalidadesField() {
  return (
    <View>
       {haveModalidade ? 
-        <View className='flex-column items-center pl-4 mx-auto w-[85%] h-[150px] bg-[#092a56] rounded-2xl'>
-          <View className='flex-row flex-1 text-center'>
+        <View className='flex-column items-center pl-4 mx-auto w-[85%] h-[150px] bg-lightbase rounded-2xl'>
+          <View className='flex-row flex-1'>
             <Modalidade option='Modalidades' itemOption='name'/>
             <Modalidade option='Horário' itemOption='Horario'/>
             <Modalidade option='Lugar' itemOption='Lugar'/>
@@ -48,13 +48,13 @@ export default function ModalidadesField() {
           </View>
         </View>
       :
-        <View className='flex-column items-center pl-4 mx-auto w-[85%] h-[150px] bg-[#092a56] rounded-2xl'>
+        <View className='flex-column items-center pl-4 mx-auto w-[85%] h-[150px] bg-lightbase rounded-2xl'>
           <View className='flex-row flex-1 text-center items-center'>
             <Text className='text-2xl text-white font-clearSans pr-1'>
               Se inscreva nas modalidades na aba
             </Text>
             <Pressable onPress={() => router.push('/Subscription')}>
-              <Text className='text-2xl text-[#52a1FF] font-clearSans'>
+              <Text className='text-2xl text-link font-clearSans'>
                 Inscrição
               </Text>
             </Pressable>

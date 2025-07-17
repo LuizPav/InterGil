@@ -90,7 +90,7 @@ export default function Register() {
   ] 
 
  return (
-   <SafeAreaView className='flex-1 bg-[#081736]'>
+   <SafeAreaView className='flex-1 bg-base'>
     <ScrollView>
       <View className='flex flex-row justify-start ml-8 mt-10'>
         <TouchableOpacity onPress={() => router.back()}>

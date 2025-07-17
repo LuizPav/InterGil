@@ -46,7 +46,7 @@ export default function Index() {
 
 
  return (
-   <SafeAreaView className='flex-1 bg-[#081736]'>
+   <SafeAreaView className='flex-1 bg-base'>
     <ScrollView>
       <Image
         source={require('@/assets/images/intergilAppLogo.png')}
@@ -65,7 +65,7 @@ export default function Index() {
             Não se cadastrou?
           </Text>
           <TouchableOpacity onPress={() => {router.push('/Register')}}>
-            <Text className='text-[#5271FF] font-bold text-lg'>
+            <Text className='text-link font-bold text-lg'>
               Cadastre-se
             </Text>
           </TouchableOpacity>

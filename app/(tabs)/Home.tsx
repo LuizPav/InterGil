@@ -1,8 +1,31 @@
 import ChallengeField from '@/components/ChallengeField';
-import { View, Text, ScrollView, ImageBackground } from 'react-native';
+import { View, Text, ScrollView, ImageBackground, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState, useEffect } from 'react';
+
+import { useAdminUser } from '@/hooks/useAdminUser';
 
 export default function index() {
+
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(false);
+
+  const { adminUser, isLoading } = useAdminUser();
+
+  useEffect(() => {
+    if(!isLoading) {
+      setIsAdmin(adminUser);
+      console.log('Admin User:', adminUser);
+    }
+  }, [adminUser, isLoading]);
+
+  if(isLoading) {
+    return (
+      <SafeAreaView className='flex-1 justify-center items-center'>
+        <ActivityIndicator size="large" color="#081736"/>
+        <Text className='text-white text-2xl pt-4'>Loading...</Text>
+      </SafeAreaView>
+    );
+  }
 
  return (
    
@@ -30,11 +53,11 @@ export default function index() {
           <Text className='color-white ml-4 text-2xl font-horizon mb-4'>
             Desafio
           </Text>
-          <ChallengeField edital={false} />
-          <ChallengeField edital={false} />
-          <ChallengeField edital={false} />
-          <ChallengeField edital={false} />
-          <ChallengeField edital={false} />
+          <ChallengeField edital={false} isAdmin={isAdmin}/>
+          <ChallengeField edital={false} isAdmin={isAdmin}/>
+          <ChallengeField edital={false} isAdmin={isAdmin}/>
+          <ChallengeField edital={false} isAdmin={isAdmin}/>
+          <ChallengeField edital={false} isAdmin={isAdmin}/>
         </View>
       </ScrollView>
    </ImageBackground>
