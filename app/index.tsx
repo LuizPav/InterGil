@@ -12,8 +12,8 @@ export default function index() {
    <SafeAreaView className='flex-1 bg-[#081736]'>
     <View className='flex-1 justify-center items-center'>
       <Image
-        source={require('@/assets/images/firstScreenLogo.png')}
-        className='w-[80%] h-[200px]'
+        source={require('../assets/images/intergilAppLogo.png')}
+        className='w-[80%] h-[250px]'
       />  
     </View>
     <View className='absolute bottom-16 right-8 w-full flex flex-row justify-end items-center mr-12 mb-10'>

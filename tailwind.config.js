@@ -8,6 +8,13 @@ module.exports = {
         horizon: ["Horizon-regular", "sans-serif"],
         clearSans: ["clear-sans", "sans-serif"],
       },
+      backgroundColor: {
+        base: "#081736",
+        lightbase: "#092a56",
+      },
+      textColor: {
+        link: "#5271FF",
+      },
     },
   },
   plugins: [],

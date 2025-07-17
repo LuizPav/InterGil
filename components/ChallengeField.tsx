@@ -4,9 +4,10 @@ import EditalExpanded from './EditalExpanded';
 
 type CampoDesafioProps={
     edital: boolean
+    isAdmin?: boolean | null
 }
 
-export default function ChallengeField({edital}: CampoDesafioProps) {
+export default function ChallengeField({ edital, isAdmin }: CampoDesafioProps) {
 
 const [modalVisible, setModalVisible] = useState(false);
 
@@ -40,7 +41,7 @@ const [modalVisible, setModalVisible] = useState(false);
                     </TouchableOpacity>
 
                     <Modal visible={modalVisible} animationType='slide'>
-                        <EditalExpanded closeModal={() => setModalVisible(false)}/>
+                        <EditalExpanded closeModal={() => setModalVisible(false)} isAdmin={isAdmin}/>
                     </Modal>
                 </View>
             </View>

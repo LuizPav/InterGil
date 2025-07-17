@@ -1,29 +1,37 @@
-import { useState } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 
 import SubscriptionField from '@/components/SubscriptionField';
 import SubscriptionPicker from '@/components/SubscriptionPicker';
 
-export default function SubscriptionForm() {
+type SubscriptionFormProps = {
+  studentName: string;
+  setStudentName: (text: string) => void;
+  studentNumber: string;
+  setStudentNumber: (text: string) => void;
+  modalidade: string;
+  setModalidade: (value: string) => void;
+  sala: string;
+  setSala: (value: string) => void;
+  parentName: string;
+  setParentName: (text: string) => void;
+  parentNumber: string;
+  setParentNumber: (text: string) => void;
+  CPF: string;
+  setCPF: (text: string) => void;
+  onSubmit: () => void;
+  isSubmitting: boolean;
+};
 
-    const [studentName, setStudentName] = useState('');
-    const [studentNumber, setStudentNumber] = useState('');
-    const [modalidade, setModalidade] = useState('');
-    const [sala, setSala] = useState('');
-    const [parentName, setParentName] = useState('');
-    const [parentNumber, setParentNumber] = useState('');
-    const [CPF, setCPF] = useState('');
-  
-    const clearFields = () => {
-      setStudentName('');
-      setStudentNumber('');
-      setModalidade('');
-      setSala('');
-      setParentName('');
-      setParentNumber('');
-      setCPF('CPF');
-      console.log('Fields cleared');
-    };
+export default function SubscriptionForm({ 
+  studentName, setStudentName, 
+  studentNumber, setStudentNumber,
+  modalidade, setModalidade,
+  sala, setSala,
+  parentName, setParentName,
+  parentNumber, setParentNumber,
+  CPF, setCPF, 
+  onSubmit, isSubmitting
+  }: SubscriptionFormProps) {
 
  return (
    <View className='flex-1 items-center'>
@@ -33,14 +41,12 @@ export default function SubscriptionForm() {
             <SubscriptionField label="Telefone (Aluno)" value={studentNumber} 
               onChangeText={setStudentNumber} type='phone-pad'
             />
-  
             <SubscriptionPicker label="Modalidades" selectedValue={modalidade} 
               onValueChange={setModalidade}
             />
             <SubscriptionPicker label="Sala" selectedValue={sala} 
               onValueChange={setSala}
             />
-  
             <SubscriptionField label="Nome Completo (Responsável)" value={parentName} 
               onChangeText={setParentName} 
             />
@@ -51,14 +57,27 @@ export default function SubscriptionForm() {
               onChangeText={setCPF} type='numeric'
             />
   
-            <TouchableOpacity 
-              className='bg-[#072042] rounded-full w-[120px] h-[50px] absolute bottom-24 right-8 justify-center items-center'
-              onPress={() => clearFields()}
-            >
-              <Text className='text-white font-bold text-lg'>
-                Enviar
-              </Text>
-            </TouchableOpacity>
-   </View>
+            {isSubmitting ?
+              <TouchableOpacity 
+              className='bg-[#a2a2a2] rounded-full w-[120px] h-[50px] absolute bottom-24 right-8 justify-center items-center'
+              onPress={onSubmit}
+              disabled={isSubmitting}
+              >
+                <Text className='text-white font-bold text-lg'>
+                  Enviando...
+                </Text>
+              </TouchableOpacity>
+              :
+              <TouchableOpacity 
+                className='bg-[#072042] rounded-full w-[120px] h-[50px] absolute bottom-24 right-8 justify-center items-center'
+                onPress={onSubmit}
+                disabled={isSubmitting}
+              >
+                <Text className='text-white font-bold text-lg'>
+                  Enviar
+                </Text>
+              </TouchableOpacity>
+            }   
+    </View>
   );
 }

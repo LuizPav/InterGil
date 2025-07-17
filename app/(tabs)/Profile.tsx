@@ -1,19 +1,75 @@
-import { ImageBackground, Text, View, Image } from 'react-native';
+import { useState, useEffect } from 'react';
+import { ImageBackground, Text, View, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useRouter } from 'expo-router';
 
+import { auth, db } from '@/src/firebaseConnection';
+import { doc, getDoc } from 'firebase/firestore';
+import { signOut } from 'firebase/auth'
 
 import ProfileField from '@/components/ProfileField';
 import ModalidadesField from '@/components/ModalidadesField';
+import { useAuthUser } from '@/hooks/useAuthUser';
+
+type UserData = {
+  name: string;
+  matricula: string;
+  password: string;
+  admin: boolean;
+  house: string;
+}
 
 export default function Profile() {
 
+const [userData, setUserData] = useState<Partial<UserData>>({});
+
+ const { user, isLoading } = useAuthUser();
+
+  useEffect(() => {
+    async function fetchUserData() {
+
+      if(!user) {
+        return;
+      }
+
+      const docref = doc(db, 'Users', user.uid);
+      getDoc(docref)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.data() as UserData;
+          setUserData(data);
+          console.log('informações do usuário: ', snapshot.data());
+        } else {
+          console.log('Não há dados para este usuário.');
+        }
+      })
+      .catch((err) => {
+        console.error('Erro ao buscar dados do usuário: ', err);
+      })
+    }  
+    if(user){
+      fetchUserData();
+    }
+  }, [user?.uid]);
+
+
   const router = useRouter();
 
-  const handleLogout = () => {
+  async function handleLogout() {
+    await signOut(auth)
     router.replace('/Login');
+    console.log('Usuário deslogado com sucesso!');
+  }
+
+  if(isLoading) {
+    return (
+      <SafeAreaView className='flex-1 items-center justify-center bg-[#081736]'>
+        <ActivityIndicator size='large' color='#fff' />
+        <Text className='text-white'>Carregando...</Text>
+      </SafeAreaView>
+    );
   }
 
  return (
@@ -33,9 +89,9 @@ export default function Profile() {
         </Text>
       </View>
 
-      <ProfileField />
+      <ProfileField name={userData.name || "..."} matricula={userData.matricula} house={userData.house}/>
 
-      <ModalidadesField />
+      <ModalidadesField/>
       
       <View className='flex-column items-center justify-center my-8'>
         <TouchableOpacity className='items-start justify-start' onPress={handleLogout}>
