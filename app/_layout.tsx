@@ -2,32 +2,24 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import * as SplashScreen from 'expo-splash-screen';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/src/firebaseConnection';
 import { useRouter } from 'expo-router';
 
 import '../global.css'
 
 import { useColorScheme } from '@/hooks/useColorScheme';
-
+import { useAuthUser } from '@/hooks/useAuthUser';
+import { useEffect } from 'react';
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-
-type AuthUser = {
-  email: string | null;
-  uid: string;
-}
 
 export default function RootLayout() {
   
   const router = useRouter();
-
-   const [authUser, setAuthUser] = useState<AuthUser | null>(null);
-   const [checkingAuth, setCheckingAuth] = useState(true);
+  const { user, isLoading } = useAuthUser();
+  
     
    const colorScheme = useColorScheme();
    const [loaded] = useFonts({
@@ -37,28 +29,14 @@ export default function RootLayout() {
      'clear-sans': require('@/assets/fonts/clear-sans.bold.ttf'),
     });
     
-    useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      if(user) {
-        setAuthUser({
-          email: user.email,
-          uid: user.uid,
-        });
-        router.replace('/Home');
-        return;
-      } else {
-        setAuthUser(null);
-      }
-    })
-    setCheckingAuth(false);
-  }, [])
   
-  if(!checkingAuth) {
-    setTimeout(() => {
-      SplashScreen.hideAsync();
-    }, 2000);
-    
+  useEffect(() => {
+    if (!isLoading && user) {
+    router.replace('/(tabs)/Home')
+    SplashScreen.hideAsync();
   }
+  }, [loaded, isLoading, user, router]);
+    
   if (!loaded) {
     return null;
   }

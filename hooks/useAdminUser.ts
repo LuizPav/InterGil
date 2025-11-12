@@ -4,14 +4,13 @@ import { useAuthUser } from "./useAuthUser";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "@/src/firebaseConnection";
 
+import { UserData } from "@/src/types";
+
 type AdminAuthState = {
   adminUser: boolean | null;
   isLoading: boolean;
 };
 
-type UserData = {
-  admin: boolean;
-};
 export function useAdminUser(): AdminAuthState {
   const [adminUser, setAdminUser] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState(true);

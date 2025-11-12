@@ -2,6 +2,6 @@ export interface UserData {
   admin: boolean;
   email: string;
   name: string;
-  amtricula: string;
+  matricula: string;
   house: string;
 }

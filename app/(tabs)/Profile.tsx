@@ -13,13 +13,7 @@ import ProfileField from '@/components/ProfileField';
 import ModalidadesField from '@/components/ModalidadesField';
 import { useAuthUser } from '@/hooks/useAuthUser';
 
-type UserData = {
-  name: string;
-  matricula: string;
-  password: string;
-  admin: boolean;
-  house: string;
-}
+import { UserData } from '@/src/types';
 
 export default function Profile() {
 
