@@ -9,10 +9,6 @@ import SubscriptionForm from '@/components/SubscriptionForm';
 import { useAuthUser } from '@/hooks/useAuthUser'
 import { UserData } from '@/src/types';
 
-type UserSerie = {
-  house: string;
-}
-
 export default function Subscription() {
 
   const { user, isLoading: AuthLoading } = useAuthUser();
@@ -47,7 +43,6 @@ export default function Subscription() {
     if(serie === null) {
       return 3;
     }
-
     if(serie.includes('3')){
       return 4;
     } else {
@@ -57,8 +52,6 @@ export default function Subscription() {
   
   
   async function handleSubscription() {
-    
-    
     if(!user) {
       alert('Usuário não autenticado. Por favor, faça login.');
       return;

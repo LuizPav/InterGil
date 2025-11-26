@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "InterGil",
-    "slug": "InterGil",
+    "slug": "intergil",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/Logo.png",
@@ -17,6 +17,7 @@
         "backgroundColor": "#000000",
         "package": "com.anonymous.interGil"
       },
+      "softwareKeyboardLayoutMode": "pan",
       "package": "com.anonymous.interGil"
     },
     "web": {
@@ -39,6 +40,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "fe08b5e2-7ea8-4118-a922-f3718b911f1f"
+      }
+    },
+    "owner": "luizpav"
   }
 }

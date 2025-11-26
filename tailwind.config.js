@@ -11,6 +11,7 @@ module.exports = {
       backgroundColor: {
         base: "#081736",
         lightbase: "#092a56",
+        tabBarSelected: "#FFDE21",
       },
       textColor: {
         link: "#5271FF",
