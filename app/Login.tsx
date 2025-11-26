@@ -3,8 +3,8 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import LoginField from '@/components/LoginField';
 import { auth } from '@/src/firebaseConnection';
