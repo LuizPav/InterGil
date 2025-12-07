@@ -9,9 +9,21 @@ export default function TabBar(props: BottomTabBarProps) {
   const { colors } = useTheme();
   const { state, descriptors, navigation } = props;
 
+  const ordenedRoutes = ["Home", "Trophy", "Subscription", "Profile"];
+
+  const sortedRoutes = [...state.routes].sort((a, b) => {
+    const indexA = ordenedRoutes.indexOf(a.name);
+    const indexB = ordenedRoutes.indexOf(b.name);
+
+    if (indexA === -1) return 1;
+    if (indexB === -1) return -1;
+
+    return indexA - indexB;
+  });
+
   return (
-    <View className="flex-row rounded-full absolute bottom-10 inset-x-10 bg-white shadow-lg px-auto py-2">
-      {state.routes.map((route, index) => {
+    <View className="flex-row rounded-full absolute bottom-10 inset-x-10 bg-white elevation-10 px-4 py-2">
+      {sortedRoutes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
           typeof options.tabBarLabel === "string"
@@ -22,7 +34,7 @@ export default function TabBar(props: BottomTabBarProps) {
 
         const typedRouteName = route.name as IconsKeys;
 
-        const isFocused = state.index === index;
+        const isFocused = state.index === state.routes.indexOf(route);
 
         const onPress = () => {
           const event = navigation.emit({
