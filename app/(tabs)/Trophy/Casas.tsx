@@ -60,7 +60,7 @@ export default function Casas() {
             }}
             renderItem={({ item }) => (
               <View className="w-[45%] items-center">
-                <Images name={item.Name} />
+                <Images name={item.Name} instagramURL={item.InstagramURL} />
               </View>
             )}
             className="max-h-[92%]"

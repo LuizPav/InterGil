@@ -13,6 +13,7 @@ export type house = {
   Name: string;
   Ano: number;
   Curso: string;
+  InstagramURL: string;
 };
 
 export type IconsKeys = keyof typeof icons;
