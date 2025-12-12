@@ -8,7 +8,13 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 
 import { db } from "@/src/firebaseConnection";
 import { useAuthUser } from "@/src/contexts/AuthUserContext";
@@ -41,7 +47,8 @@ export default function Confronto() {
 
   useEffect(() => {
     const docRef = collection(db, "Confrontos");
-    const getConfrontations = onSnapshot(docRef, (snapshot) => {
+    const confrontationQuery = query(docRef, orderBy("data", "asc"));
+    const getConfrontations = onSnapshot(confrontationQuery, (snapshot) => {
       try {
         if (!snapshot.empty) {
           const confrontationsList = snapshot.docs.map((doc) => {
@@ -108,24 +115,27 @@ export default function Confronto() {
 
         <FlatList
           keyExtractor={(item) => item.id}
-          data={confrontos?.sort((a, b) => {
-            return a.data
-              .toDate()
-              .toLocaleString()
-              .localeCompare(b.data.toDate().toLocaleString());
-          })}
-          renderItem={({ item }) => (
-            <ConfrontationField
-              home1={item.timeA}
-              home2={item.timeB}
-              hour={item.data
-                .toDate()
-                .toLocaleTimeString()
-                .replace(/:\d{2}$/, "")}
-              modalidade={item.modalidade}
-            />
-          )}
-          className="max-h-[83%]"
+          data={confrontos}
+          renderItem={({ item }) => {
+            const dateObj = item.data.toDate();
+            return (
+              <ConfrontationField
+                home1={item.timeA}
+                home2={item.timeB}
+                hour={dateObj.toLocaleTimeString("pt-BR", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+                day={dateObj.toLocaleDateString("pt-BR", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "2-digit",
+                })}
+                modalidade={item.modalidade}
+              />
+            );
+          }}
+          className="max-h-[90%]"
         />
 
         <Modal
