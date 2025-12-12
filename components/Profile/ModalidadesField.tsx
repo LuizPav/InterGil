@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 
 import Modalidade from "./Modalidade";
 import { db } from "@/src/firebaseConnection";
-import { useAuthUser } from "@/src/contexts/authUserContext";
+import { useAuthUser } from "@/src/contexts/AuthUserContext";
 
 export default function ModalidadesField() {
   const router = useRouter();

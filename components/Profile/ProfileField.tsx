@@ -1,4 +1,4 @@
-import { homes } from "@/constants/types";
+import { homes } from "@/src/types";
 import { useCloudinaryImages } from "@/hooks/useCloudinaryImages";
 import { View, Text, Image } from "react-native";
 

@@ -1,14 +1,8 @@
-import { useAuthUser } from "@/src/contexts/authUserContext";
+import { useAuthUser } from "@/src/contexts/AuthUserContext";
 import { db } from "@/src/firebaseConnection";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, doc, getDoc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator, Pressable } from "react-native";
+import { View, Text } from "react-native";
 
 type ModalidadeProps = {
   option: string;
