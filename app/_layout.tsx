@@ -5,22 +5,58 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
 import * as SplashScreen from "expo-splash-screen";
 import { useRouter } from "expo-router";
+import { useEffect } from "react";
+import { DarkTheme, ThemeProvider } from "@react-navigation/native";
+
 import {
   AuthUserContextProvider,
   useAuthUser,
-} from "@/src/contexts/authUserContext";
+} from "@/src/contexts/AuthUserContext";
 
 import "../global.css";
+import { ActivityIndicator, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { useEffect } from "react";
-import { DarkTheme, ThemeProvider } from "@react-navigation/native";
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
-  const router = useRouter();
+function InitialLayout() {
   const { user, isLoading } = useAuthUser();
+  const router = useRouter();
 
+  useEffect(() => {
+    if (!isLoading) {
+      if (user) {
+        router.replace("/(tabs)/Home");
+      } else {
+        router.replace("/");
+      }
+      SplashScreen.hideAsync();
+    }
+  }, [user, isLoading]);
+
+  if (isLoading) {
+    return (
+      <SafeAreaView className="flex-1">
+        <ActivityIndicator color={"#FFF"} size={"large"} />
+        <Text className="text-center text-lg text-white font-clearSans mt-4">
+          Carregando usuário
+        </Text>
+      </SafeAreaView>
+    );
+  }
+
+  return (
+    <Stack>
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="Login" options={{ headerShown: false }} />
+      <Stack.Screen name="Register" options={{ headerShown: false }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="+not-found" />
+    </Stack>
+  );
+}
+
+export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     "Horizon-regular": require("@/assets/fonts/horizon.otf"),
@@ -28,28 +64,15 @@ export default function RootLayout() {
     "clear-sans": require("@/assets/fonts/clear-sans.bold.ttf"),
   });
 
-  useEffect(() => {
-    if (!isLoading && user) {
-      router.replace("/(tabs)/Home");
-      SplashScreen.hideAsync();
-    }
-  }, [loaded, isLoading, user, router]);
-
   if (!loaded) {
     return null;
   }
 
   return (
     <ThemeProvider value={DarkTheme}>
-      <GestureHandlerRootView>
+      <GestureHandlerRootView style={{ flex: 1 }}>
         <AuthUserContextProvider>
-          <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen name="Login" options={{ headerShown: false }} />
-            <Stack.Screen name="Register" options={{ headerShown: false }} />
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
+          <InitialLayout />
           <StatusBar style="auto" />
         </AuthUserContextProvider>
       </GestureHandlerRootView>

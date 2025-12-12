@@ -7,9 +7,9 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-import { useAuthUser } from "@/src/contexts/authUserContext";
+import { useAuthUser } from "@/src/contexts/AuthUserContext";
 
-import ChallengeField from "@/components/ChallengeField";
+import ChallengeField from "@/components/Home/ChallengeField";
 
 export default function index() {
   const { userData, isLoading } = useAuthUser();

@@ -11,8 +11,8 @@ import { useEffect, useState } from "react";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "@/src/firebaseConnection";
 
-import SubscriptionForm from "@/components/SubscriptionForm";
-import { useAuthUser } from "@/src/contexts/authUserContext";
+import SubscriptionForm from "@/components/Subscription/SubscriptionForm";
+import { useAuthUser } from "@/src/contexts/AuthUserContext";
 import { useFirebaseReference } from "@/hooks/useFirebaseReference";
 
 export default function Subscription() {

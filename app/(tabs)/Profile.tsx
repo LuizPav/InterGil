@@ -10,12 +10,12 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
-import ModalidadesField from "@/components/ModalidadesField";
-import ProfileField from "@/components/ProfileField";
+import ModalidadesField from "@/components/Profile/ModalidadesField";
+import ProfileField from "@/components/Profile/ProfileField";
 
 import { homes } from "@/src/types";
 
-import { useAuthUser } from "@/src/contexts/authUserContext";
+import { useAuthUser } from "@/src/contexts/AuthUserContext";
 import { useFirebaseReference } from "@/hooks/useFirebaseReference";
 
 export default function Profile() {
