@@ -6,6 +6,7 @@ type ConfrontationFieldProps = {
   home1: homes;
   home2: homes;
   hour: string;
+  day: string;
   modalidade: string;
 };
 
@@ -13,6 +14,7 @@ export default function ConfrontationField({
   home1,
   home2,
   hour,
+  day,
   modalidade,
 }: ConfrontationFieldProps) {
   return (
@@ -21,7 +23,8 @@ export default function ConfrontationField({
         <HomeItem home={home1} />
 
         <View className="flex-1 items-center justify-center">
-          <Text className="text-black text-2xl font-bold mt-16">0 | 0</Text>
+          <Text className="text-black text-2xl font-bold mt-10">{day}</Text>
+          <Text className="text-black text-2xl font-bold mt-2">0 | 0</Text>
           <Text className="text-black text-2xl font-bold mt-2">
             {modalidade}
           </Text>
