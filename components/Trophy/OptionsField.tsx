@@ -20,7 +20,7 @@ export default function OptionsField() {
         title="Hall da Fama"
       />
       <TrophyOption
-        image={require("@/assets/images/TrophyIcons/Scoreboard.png")}
+        image={require("@/assets/images/TrophyIcons/Home.png")}
         route="/Trophy/Casas"
         title="Casas"
       />
