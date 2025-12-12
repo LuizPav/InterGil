@@ -1,7 +1,11 @@
-import { View } from 'react-native';
+import Header from "@/components/Trophy/Header";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Modalidades() {
- return (
-   <View/>
+  return (
+    <SafeAreaView>
+      <Header title="Modalidades" />
+    </SafeAreaView>
   );
 }
